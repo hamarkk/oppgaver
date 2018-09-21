@@ -3,39 +3,64 @@ title: Godot
 language: nb
 ---
 
-Python er et tekstbasert programmeringsspråk som ofte er anbefalt til
-nybegynnere på grunn av språkets enkle syntaks, men er også mye brukt i
-industrien. Python passer perfekt for 2D-spill, automatisering, vitenskapelig
-analyse, GUI-applikasjoner og servere.
+Godot er en spillmotor basert på åpen kildekode som lar deg lage dine
+egne spill i enten 2D eller 3D, med støtte for mange moderne
+spillteknologier. Godot benytter seg av et eget programmeringsspråk
+kalt "GDScript", som er svært likt Python i syntaks og oppbygning.
+Akkurat som Python er GDScript svært lett å lære, men det er viktig
+å være klar over at Godot er spesielt rettet inn mot å lage spill
+til PC, web eller mobile plattformer; hvis du er interessert i å
+lage dine egne spill, og er villig til å lære deg å bruke et
+nytt program sammen med et nytt programmeringsspråk, er Godot et
+bra valg. 
 
-## Hvordan installere Python
+Godot er per i dag tilgjengelig for Windows, MacOS og Linux. Det er
+et åpent og gratis program som er tilgjengelig for alle til fri bruk
+og eventuelt tilpasning.
 
-- Gå til [python.org/downloads](https://python.org/downloads).
+Det anbefales at du har iallfall en god grunnleggende forståelse av
+engelsk for å forstå selve Godot-programmet da den norske
+oversettelsen er svært mangelfull (per september 2018).
 
-- Last ned Python til din datamaskin. Velg nyeste versjon (3.7.0 per juli 2018).
 
-- Installer Python ved å følge installasjonsguiden.
+## Hvordan installere Godot
 
-- Når Python er installert kan du åpne programmet som heter IDLE.
+- Gå til [godotengine.org/download/](https://godotengine.org/download/).
 
-## Hvordan komme igang med Python
+- Last ned Godot til din datamaskin. Velg nyeste versjon
+  (3.0.6 per september 2018), 64-bit.
 
-- Når du er i IDLE, så kan du lage en ny fil for å skrive et program.
+Godot distribueres som en pakket programfil du kan legge i en
+mappe du velger selv. Kjør programmet når du har pakket det ut
+for å starte.
 
-- Trykk på `ctrl + N` eller `File --> New File` for å lage et nytt program.
 
-- Skriv: `print("Hello world")`.
+## Hvordan komme i gang med Godot
 
-- Trykk på `ctrl + S` eller `File --> Save` for å lagre programmet ditt.
+Godot er et relativt omfattende program, men dette kurset
+konsentrerer seg i hovedsak om hvordan du kan sette sammen ditt
+eget spill ved å skrive din egen kode. Det er likevel svært mange
+andre prosesser som inngår i arbeidet med å lage et spill, og selv
+om det er vanskelig å ikke komme innom noen av disse prosessene når
+du lærer deg å skrive kode, vil ikke kurset dekke noen av disse
+særlig grundig og heller basere seg på å benytte forhåndslaget
+grafikk og andre ressurser som er nødvendig for å få et spill til å
+fungere.
 
-- Gi programmet ditt navnet helloworld.py og lagre det i den mappen du ønsker.
+Det anbefales sterkt å begynne med "Introduksjon til Godot" for å
+få en grunnleggende forståelse av programmet før du begynner å skrive
+kode.
 
-- Trykk på `F5` eller `Run --> Run Module` for å kjøre programmet ditt.
 
-- Du har nå skrevet ditt første program!
+## Offisiell dokumentasjon
 
-## Videoer
+- [Godot Docs](http://docs.godotengine.org/en/3.0/) er den offisielle dokumentasjonen til Godot. 
+  Her finner du en grundig innføring i programmet og hvordan
+  det er designet, samt kurs for å lage et veldig enkelt 2D-spill. 
+  (Engelsk)
 
-- Sjekk ut NTNU sine videoer på norsk for hvordan du kan komme i gang og
-  programmere i Python på
-  [YouTube](https://www.youtube.com/channel/UCNwXyHlGGOWZLzTy0-hM63w/videos?flow=grid&sort=da&view=0).
+- [Godot API Reference](http://docs.godotengine.org/en/3.0/classes/index.html) er en svært grundig referanse til
+  GDScript, kodespråket Godot bruker. Et uvurdelig verktøy for å
+  forstå hvordan de mange forhåndslagde komponentene i Godot fungerer
+  og hvordan du bruker dem i din egen kode.
+  (Engelsk)
