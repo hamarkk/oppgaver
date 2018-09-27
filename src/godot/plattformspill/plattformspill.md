@@ -1,5 +1,5 @@
 ---
-title: Innføring i Godot
+title: Plattformspill i 2D
 author: Tryggve Sollid
 language: nb
 ---
@@ -7,42 +7,94 @@ language: nb
 
 # Introduksjon
 
-Denne innføringen har som mål å lære deg hvordan programmet Godot er satt
-sammen, vise hvordan de mest grunnleggende operasjonene i programmet gjøres,
-og demonstrere hvordan du kan lage et svært enkelt spillkonsept.
+Dette oppgavesettet har som mål å vise deg hvordan du kan lage ditt eget
+2D-plattformspill i Godot.
 
+Å lage et spill er et veldig komplisert prosjekt, så for å forenkle litt vil
+dette oppgavesettet bruke grafikk og effekter som stort sett er laget på
+forhånd. Grafikken er hentet fra nettsiden https://kenney.nl/ som tilbyr
+mange gratis grafikkfiler til fri benyttelse.
+
+Fokus i dette oppgavesettet ligger på å øve på å skrive kode i Godot.
+
+Det forutsettes at du allerede har gjort deg kjent med de grunnleggende
+funksjonene i Godot, ved å gå gjennom innføringsoppgavene.
+
+![Bilde av et eksempelspill](bilder/eksempel.png)
 
 # Mål
 
-Målet er at du skal kunne dette når du har gjennomgått oppgavene:
-- Kunne forklare hva en *scene* er i Godot
-- Kunne forklare hva en *node* er i Godot
-- Lage dine egne 2D-scener i Godot
-- Skrive kode for å styre spillobjekter i Godot
+Målet er å ende opp med et enkelt 2D-plattformspill som har disse elementene:
+- En spillerfigur som kan gå til høyre og venstre, hoppe og skyte
+- Et brett bestående av ulike plattformer og vegger som spilleren kan gå
+  gjennom
+- Fiender som kan skade spilleren
+- En bossfigur som må bekjempes før spilleren kan fullføre brettet
+- Enkle grafiske effekter
 
 
-# Oppgave 1: Start Godot {.activity}
+# Oppgave 1: Legg til grafikk {.activity}
 
-- [ ] Finn Godot-programmet på datamaskinen din. Se på introduksjonssiden
-  for å finne ut hvordan du får lastet det ned og lagt det i en mappe du 
-  velger selv.
+Vi trenger noen grafikkfiler før vi kan sette i gang. Last ned disse filene
+til datamaskinen din:
+
+- [Spillerfigur-grafikk](./filer/platformerPack_character.png)
+- [Brett-grafikk](./filer/platformPack_tilesheet.png)
+- [Brikkesett](./filer/Brikkesett.tres)
+
+- [ ] Start Godot og lag et nytt prosjekt. Kall det hva du vil.
+- [ ] Høyreklikk i filutforskeren og velg "Open in File Explorer".
+- [ ] Lag ei ny mappe, kall den "grafikk", og kopier filene du lastet ned
+  over i denne nye mappa.
+
+Husk at du må organisere filene dine så det er lett å finne fram i prosjektet.
+Vi skal lage flere mapper etter hvert, og få tak i flere filer til spillet vårt.
 
 
-# Oppgave 2: Lag et nytt prosjekt {.activity}
+# Oppgave 2: Lag en spillerfigur {.activity}
 
-Det første vinduet i Godot er prosjektvelgeren. 
+- [ ] Klikk på **2D**-fanen og klikk plusstegnet i nodelista for å legge til en
+  ny node. Søk etter *KinematicBody2D*. Dette er en type node laget for å bygge
+  spillfigurer som styres av kode, men fortsatt reagerer på omgivelsene i
+  spillet.
 
-![Bilde av prosjektvelgeren i Godot](bilder/prosjektvelger.png)
+![Bilde av KinematicBody2D i Godot](bilder/kinematic.png)
 
-- [ ] Klikk på **New Project** for å lage et nytt prosjekt.
+Legg merke til varseltrekanten ved siden av den nye noden. Du kan klikke på den
+for å se hva problemet er. Problemet er at selv om vi har laget en kodefigur, så
+har vi ikke fortalt Godot hvordan den ser ut. Det skal vi fikse nå.
 
-![Bilde av dialogboksen som lager et nytt prosjekt](bilder/nytt_prosjekt.png)
+- [ ] Klikk på plusstegnet i nodelista og legg til en node av typen
+  *CollisionShape2D*.
 
-- [ ] Trykk på **Browse** og velg en passende mappe i hjemmeområdet ditt.
-  Klikk OK og skriv inn navnet på spillet i den øverste tekstboksen,
-  for eksempel *robotspillet* siden vi etter hvert skal lage noen roboter som kan
-  rusle rundt. Klikk på **Create Folder** for å lage en egen mappe for prosjektet
-  ditt, og så **Create & Edit** for å sette i gang med å lage spillet ditt.
+Denne noden har *også* en varseltrekant. Makan! Dette er fordi at selv om vi
+har lagt til en *shape*, altså en form, har vi ikke sagt *hvilken* form det er
+snakk om.
+
+- [ ] Velg den nye noden og finn verdien *Shape* i inspeksjonsvinduet. Klikk
+  på pila i feltet ved siden av, og velg *New Rectangle Shape*.
+
+Nå har vi laget en figur, men den vises ikke på skjermen. Det skal vi fikse nå.
+
+- [ ] Legg til en ny node av typen *Sprite*.
+- [ ] Finn Sprite-noden i treet og velg den. I inspeksjonsvinduet finner du
+  verdien *Texture*. Bla deg fram til grafikkmappa i filutforskeren, finn fila
+  som heter *platformerPack_character.png* og dra den over i *Texture*-feltet
+  du akkurat så på.
+
+
+![Bilde av spillerfiguren](bilder/figur.png)
+
+Ser man det, ja. Dette er figuren du skal lage i dette spillet. Men: Det er alt
+for mange figurer her. Faktisk så er det alle bildene i *animasjonen* som til
+sammen blir bevegelsene figuren kan gjøre. En vanlig spillteknikk er å lagre
+animasjoner sammen i en fil som dette, og så "klippe ut" det bildet du trenger
+for å vise det på skjermen. Det skal vi gjøre nå.
+
+- [ ] Velg *Sprite*-noden din og se i inspeksjonsvinduet. Finn verdien
+  *Animation* og klikk på den. 
+- [ ] Legg merke til at den har tre felt: *Vframes*, *Hframes* og *Frame*.
+  
 
 
 # Oppgave 3: Hovedvinduet {.activity}
