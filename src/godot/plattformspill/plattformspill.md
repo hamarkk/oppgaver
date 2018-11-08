@@ -97,59 +97,42 @@ for å vise det på skjermen. Det skal vi gjøre nå.
   
 
 
-# Oppgave 3: Hovedvinduet {.activity}
+# Oppgave 3: Spillerkode {.activity}
 
-Det første vinduet du ser når du åpner et prosjekt, er hovedvinduet i Godot.
-Under følger en gjennomgang av de ulike elementene du kommer til å bruke
-i dette kurset.
 
-![Bilde av hovedvinduet i Godot](bilder/hovedvindu.png)
+```python
+extends KinematicBody2D
 
-1. **1: Vindusvelgeren:** Her velger du hvilket hovedvindu du skal jobbe med.
-  **3D**- og **2D**-vinduene viser deg hvordan *scenene* i spillet ditt ser
-  ut, og **Script**-vinduet lar deg skrive kode. **AssetLib** er en nett-
-  database over programtillegg og -utvidelser andre har laget som du kan
-  laste ned og bruke til dine egne spill og prosjekter.
-2. **2: Menyen:** Her kan du endre innstillinger og finne verktøymenyer for
-  prosjektet ditt.
-3. **3: Filutforskeren:** Et spill består av mange filer. Her finner du dem.
-4. **4: Scenefaner:** En rekke med faner som lar deg veksle mellom scenene du
-  har åpne.
-5. **5: Verktøy:** Et vindu hvor du finner ulike verktøy, hovedsaklig utdata-,
-  feilsøkings- og animasjonsvinduene.
-6. **6: Nodelista:** Oversikt over hvilke *noder* scenene dine består av.
-  Å lære seg scene- og nodesystemet i Godot er hovedpoenget med denne innføringen.
-7. **7: Inspeksjonsvinduet:** Oversikt over hvilke innstillinger, attributter
-  og verdier nodene dine er satt opp med. Ved siden av kodevinduet, er
-  inspeksjonsvinduet og scenevinduet (det store, tomme vinduet midt på skjermen)
-  de mest brukte i Godot.
+var animasjon = 0
+var animasjonshastighet = 200
+var animasjonstid = 0
+var animasjonsretning = 1
+var bytt_bilde = false
 
-  Resten av innføringen består i å gå gjennom noen av de mest brukte funksjonene
-  i programmet.
+func _process(delta):
+	var flytt = Vector2(0,0)
 
-- [ ] Klikk på **2D**-knappen i vindusvelgeren for å åpne sceneredigeringsvinduet
-  for 2D-scener.
+  if Input.is_key_pressed(KEY_LEFT):
+    flytt.x = -1 * hastighet
+    animasjonsretning = -1
+  elif Input.is_key_pressed(KEY_RIGHT):
+    flytt.x = 1 * hastighet
+    animasjonsretning = 1
 
-![Bilde av 2D-scenevinduet i Godot](bilder/2d_scene.png)
+  var flyttresultat = move_and_slide(flytt, Vector2(0,-1))
 
-Forskjellen på 2D- og 3D-vinduet er... en dimensjon. **2D** betyr at spillet
-vises i *to dimensjoner*, altså bredde og høyde. **3D** betyr at spillet vises
-i *tre dimensjoner*, altså bredde, høyde og dybde. Godot kan brukes til begge
-deler, men for enkelhetens skyld holder vi oss til to dimensjoner innledningsvis.
-
-To begreper det er veldig viktig å forstå i Godot er *scener* og *noder*.
-En *scene* er bygd opp av noder, og utgjør kort fortalt alle klossene spillet
-ditt er bygd opp av. I spillet ditt kan du ha en scene for spillerobjektet ditt,
-en scene for en fiende, og en scene for bakgrunnsgrafikk, for eksempel. Men alle
-disse scenene må også tilhøre en scene for å vises på skjermen; alle brettene i
-spillet ditt er også scener, eventuelle mellomsekvenser og menyer kan også være
-egne scener. Men: For at scenene skal faktisk gjøre noe i spillet ditt, må de
-legges inn som *noder* i et *scenetre*. Hvert spill i Godot har ett scenetre,
-og alle scenene som brukes må legges inn der som noder. Altså kan vi si at 
-scener er *oppskriften* for hvordan objektene i spillet ditt skal oppføre seg,
-og det er først når de legges inn som *noder* at de faktisk gjør noe i spillet.
-
-Forvirrende? Vi prøver oss på et eksempel.
+  var tid = OS.get_ticks_msec()
+		if tid >= animasjonstid + animasjonshastighet:
+			bytt_bilde = not bytt_bilde
+			animasjonstid = tid
+    
+  animasjon = 2
+  if bytt_bilde:
+    animasjon = 3
+  
+  $Sprite.frame = animasjon
+  $Sprite.scale.x = animasjonsretning
+```
 
 
 # Oppgave 4: Din første scene {.activity}
